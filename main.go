@@ -1,14 +1,18 @@
 package main
 
 import (
-	"github.com/labstack/echo/v4"
-	"net/http"
+	"fmt"
+	"github.com/k1le0/demo/internal"
 )
 
 func main() {
-	e := echo.New()
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "hello world")
-	})
-	e.Logger.Fatal(e.Start(":8091"))
+	message := internal.Message{
+		UserName: "client",
+		Content:  "123",
+		Time:     "123",
+	}
+	b := internal.EncodeToBytes(message)
+	fmt.Println("123: ", b)
+	d := internal.DecodeToMessage(b)
+	fmt.Println("456: ", d.Content)
 }
